@@ -1,0 +1,79 @@
+# Configuration file for a training job that teaches Mistral 7B v0.1 to memorize a small batch from
+# the python_qa_short dataset
+
+# Model Configuration: Mistral 7B
+base_model: mistralai/Mistral-7B-v0.1
+sequence_len: 4096
+
+# base model weight quantization
+load_in_8bit: false
+
+# attention implementation
+flash_attention: true
+
+# finetuned adapter config
+adapter: lora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.0 # off because this is a memorization test
+lora_target_linear: true
+lora_modules_to_save: # required when adding new tokens to LLaMA/Mistral
+  - embed_tokens
+  - lm_head
+# for details, see https://github.com/huggingface/peft/issues/334#issuecomment-1561727994
+
+# Dataset Configuration: python_qa_short
+datasets:
+  # This will be the path used for the data when it is saved to the Volume in the cloud.
+  - path: python_qa_short.parquet
+    type:
+      # Parquet file contains input, output fields per line.
+      # This gets mapped to instruction, output axolotl tags.
+      field_instruction: input
+      field_output: output
+
+special_tokens:
+  bos_token: "<s>"
+  eos_token: "</s>"
+  unk_token: "<unk>"
+
+val_set_size: 0.5
+
+# Training Configuration: AdamW, CosineLR, deepspeed, many epochs
+# random seed for better reproducibility
+seed: 117
+
+# optimizer config
+optimizer: adamw_torch
+learning_rate: 0.0001
+lr_scheduler: cosine
+warmup_steps: 10
+gradient_accumulation_steps: 1
+micro_batch_size: 16
+
+# axolotl saving config
+dataset_prepared_path: last_run_prepared
+output_dir: ./lora-out
+
+# logging and eval config
+logging_steps: 10
+eval_steps: 10
+save_strategy: "no"
+num_epochs: 50
+
+# wandb logging config
+wandb_project: memorize-python-qa
+
+# training performance optimization config
+bf16: auto
+fp16: false
+tf32: false
+deepspeed: /workspace/axolotl/deepspeed_configs/zero3_bf16.json
+gradient_checkpointing: true
+
+# Miscellaneous Configuration
+# when true, prevents over-writing the config from the CLI
+strict: false
+
+# "Don't mess with this, it's here for accelerate and torchrun" -- axolotl docs
+local_rank:
