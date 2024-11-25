@@ -12,11 +12,12 @@ Instructions:
 <li>Save dataset in "data" directory (this example uses name: 'python_qa_short.parquet')</li>
 <li>Run command in the terminal: modal run --detach src.train --config=config/mistral-memorize.yml --data=data/python_qa_.parquet</li>
 <li>The training stage will take around 40 min and 50 epochs</li>
-<li>After than you can run prompt-commands in the terminal</li>
+<li>After that you can run prompt-commands in the terminal</li>
 <li>Example of prompt-command:  modal run -q src.inference --prompt "### Instruction: Create a Python program to modify given string to leave only consonants and then to sort it ### Input: "RockaMokaFo" ### Response:"</li>
 <li>If you don't what to provide input you still should use Input var for the prompt like this: '... ### Input: ### Response:'</li>
+<li>To watch demo video please follow the <a href="https://drive.google.com/file/d/1ohn4ykPXDQ9JOxdGu8RT-JCe6V4pN_5I/view?usp=drive_link">link</a></li>
 </ul>
 <p align="center"><img src="https://github.com/kd3821/python_qa_agent/blob/main/img/screenshot_prompt.png?raw=true"></p>
 
 <p align="center">Thanks for visiting!</p>
-<p align="center">And MANY THANKS to <a href="https://pydata.org/numhack">NumHack </a>(PyData Impact Hackaton) and the sponsors for giving a chance to participate, network and learn.</p>
+<p align="center">And MANY THANKS to <a href="https://pydata.org/numhack">NumHack</a> (PyData Impact Hackaton) and the sponsors for giving a chance to participate, network and learn.</p>
