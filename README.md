@@ -7,11 +7,14 @@
 
 Instructions:
 <ul>
-<li>You will need access to Mistral AI base model on hugginface: https://huggingface.co/mistralai/Mistral-7B-v0.1 </li>
-<li>Download dataset for training (1000 rows): https://huggingface.co/datasets/AdapterOcean/python-code-instructions-18k-alpaca-standardized_cluster_6_alpaca</li>
+<li>You will need <a href="https://modal.com/">Modal</a> and <a href="https://huggingface.co/">Hugging Face</a> accounts</li>
+<li>Modal platform provides free $30 monthly budget</li>
+<li>You can follow this <a href="https://modal.com/docs/examples/llm-finetuning">example</a> from "Modal" documentation</li>
+<li>You will need access to <a href="https://huggingface.co/mistralai/Mistral-7B-v0.1">Mistral AI base model</a> on Hugging Face</li>
+<li>Download <a href="https://huggingface.co/datasets/AdapterOcean/python-code-instructions-18k-alpaca-standardized_cluster_6_alpaca">dataset</a> for training (1000 rows)</li>
 <li>Save dataset in "data" directory (this example uses name: 'python_qa_short.parquet')</li>
 <li>Run command in the terminal: modal run --detach src.train --config=config/mistral-memorize.yml --data=data/python_qa_.parquet</li>
-<li>The training stage will take around 40 min and 50 epochs</li>
+<li>The training stage will take around 40 min and 50 epochs and around $5.00 of budget</li>
 <li>After that you can run prompt-commands in the terminal</li>
 <li>Example of prompt-command:  modal run -q src.inference --prompt "### Instruction: Create a Python program to modify given string to leave only consonants and then to sort it ### Input: "RockaMokaFo" ### Response:"</li>
 <li>If you don't what to provide input you still should use Input var for the prompt like this: '... ### Input: ### Response:'</li>
